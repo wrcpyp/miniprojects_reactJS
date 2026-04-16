@@ -17,6 +17,16 @@ const App = () => {
         setTasks([...tasks, newTask])
     }
 
+    const removeTask = (id) => {
+        setTasks(tasks.filter(task => task.id !== id))
+    }
+
+    const editTask = (id, newText) => {
+        setTasks(tasks.map(task =>
+            task.id === id ? {...task, text: newText} : task
+        ))
+    }
+
     return (
         <>
             <div>
@@ -32,7 +42,7 @@ const App = () => {
             </div>
 
             <div>
-                <TodoList showTasks={tasks} />
+                <TodoList showTasks={tasks} edit={editTask} remove={removeTask} />
             </div>
         </>
     )
