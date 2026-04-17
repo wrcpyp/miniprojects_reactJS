@@ -1,15 +1,13 @@
-import TodoItem from "./TodoItem";
+import TodoItem from "./TodoItem"
 
-const TodoList = ({ tasks, toggleTask, editTask, removeTask }) => {
+const TodoList = ({ showTasks, markDone, edit, remove }) => {
     return (
-        <>
-            {
-                tasks.map((task) => (
-                    <TodoItem key={task.id} task={task} editTask={editTask} removeTask={removeTask} toggleTask={toggleTask}></TodoItem>
-                ))
-            }
-        </>
+        <div className="mt-[10px]">
+            {showTasks.map(task => (
+                <TodoItem key={task.id} markDone={markDone} task={task} edit={edit} remove={remove} />
+            ))}
+        </div>
     )
-};
+}
 
-export default TodoList;
+export default TodoList

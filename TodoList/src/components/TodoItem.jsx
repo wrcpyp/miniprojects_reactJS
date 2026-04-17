@@ -1,14 +1,45 @@
-const TodoItem = ({ task, toggleTask, editTask, removeTask }) => {
+import { useState } from "react"
+
+const TodoItem = ({ task, markDone, edit, remove }) => {
+
+    const [isEditing, setIsEditing] = useState(false)
+    const [tempText, setTempText] = useState(task.text)
+
+    const toggleEditMode = () => {
+        edit(task.id, tempText)
+        setIsEditing(false)
+    }
+
     return (
-        <div className="flex justify-between w-[300px] bg-gray-200 p-[10px] mt-[10px]">
-            <div>
-                <input type="checkbox" checked={task.completed} onChange={() => toggleTask(task.id)}/>
-            </div>
-            <p className={task.completed ? "line-through text-gray-400" : ""}>{task.text}</p>
-            <div>
-                <button onClick={() => editTask(task.id)} className="border-[1px]">Edit</button>
-                <button onClick={() => removeTask(task.id)} className="border-[1px]">Del</button>
-            </div>
+        <div>
+            {isEditing ? (
+                <div className="flex">
+                    <div>
+                        <input onChange={() => markDone} type="checkbox" className="mr-[10px]" />
+                    </div>
+                    <div>
+                        <input onChange={(e) => setTempText(e.target.value)} type="text" value={tempText} className="border-[1px]" />
+                    </div>
+                    <div>
+                        <button onClick={toggleEditMode} className="ml-[10px] border-[1px]">Save</button>
+                        <button onClick={() => setIsEditing(false)} className="ml-[10px] border-[1px]">Cancel</button>
+                    </div>
+                </div>
+            ) : (
+                <div className="flex">
+                    <div>
+                        <input onChange={() => markDone(task.id)} checked={task.completed} type="checkbox" className="mr-[10px]" />
+                    </div>
+                    <div>
+                        <p className={`${task.completed ? "line-through text-gray-300" : ""}`}>{task.text}</p>
+                    </div>
+                    <div>
+                        <button onClick={() => setIsEditing(true)} className="ml-[10px] border-[1px]">Edit</button>
+                        <button onClick={() => remove(task.id)} className="ml-[10px] border-[1px]">Delete</button>
+                    </div>
+                </div>
+            )
+            }
         </div>
     )
 }
