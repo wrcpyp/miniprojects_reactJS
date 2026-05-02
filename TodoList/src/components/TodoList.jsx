@@ -2,9 +2,9 @@ import TodoItem from "./TodoItem"
 
 const TodoList = ({ showTasks, markDone, edit, remove }) => {
     return (
-        <div className="mt-[10px]">
+        <div>
             {showTasks.map(task => (
-                <TodoItem key={task.id} markDone={markDone} task={task} edit={edit} remove={remove} />
+                <TodoItem key={task.id} task={task} markDone={markDone} edit={edit} remove={remove} />
             ))}
         </div>
     )
